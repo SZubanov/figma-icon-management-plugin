@@ -1,0 +1,19 @@
+{
+  "name": "figma-icon-management-plugin",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "esbuild": "*",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "react": "*",
+    "react-dom": "*"
+  }
+}

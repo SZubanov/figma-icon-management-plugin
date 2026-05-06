@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "lib": ["ES6"],
+    "strict": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@figma/plugin-typings"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}
