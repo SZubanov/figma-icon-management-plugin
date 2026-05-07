@@ -1,14 +1,15 @@
 export interface IconSetMetadata {
   name: string;
-  sizes: number[];
+  sizes: string[];
   tags: string[];
+  styles: string[];
   categories: string[];
 }
 
 export interface SelectionData {
   nodeId: string;
   nodeName: string;
-  metadata: IconSetMetadata | null;
+  metadata: IconSetMetadata;
 }
 
 export interface ReleaseSummary {

@@ -23,10 +23,27 @@ type AppState =
     }
   | { status: 'release_done'; summary: ReleaseSummary };
 
-const EMPTY_FORM: IconSetMetadata = { name: '', sizes: [], tags: [], categories: [] };
-
 function post(msg: UIMessage): void {
   parent.postMessage({ pluginMessage: msg }, '*');
+}
+
+function RawInput({ value, onCommit, style, placeholder }: {
+  value: string;
+  onCommit: (raw: string) => void;
+  style?: CSSProperties;
+  placeholder?: string;
+}) {
+  const [text, setText] = useState(value);
+  useEffect(() => { setText(value); }, [value]);
+  return (
+    <input
+      style={style}
+      value={text}
+      onChange={e => setText(e.target.value)}
+      onBlur={() => onCommit(text)}
+      placeholder={placeholder}
+    />
+  );
 }
 
 function applyPending(pending: PendingSwitch): AppState {
@@ -35,7 +52,7 @@ function applyPending(pending: PendingSwitch): AppState {
       status: 'editing',
       nodeId: pending.data.nodeId,
       nodeName: pending.data.nodeName,
-      form: pending.data.metadata ?? { ...EMPTY_FORM },
+      form: pending.data.metadata,
       isDirty: false,
       pending: null,
       releasing: false,
@@ -197,7 +214,7 @@ function App() {
   const { nodeId, nodeName, form, isDirty, pending, releasing, releaseStep } = state;
 
   return (
-    <div style={s.root}>
+    <div style={s.root} onKeyDown={e => e.stopPropagation()}>
       {pending && (
         <div style={s.banner}>
           <span style={{ flex: 1 }}>Unsaved changes</span>
@@ -223,39 +240,40 @@ function App() {
 
       <div style={s.section}>
         <label style={s.label}>Sizes (space-separated)</label>
-        <input
+        <RawInput
           style={s.input}
           value={form.sizes.join(' ')}
-          onChange={e => {
-            const sizes = e.target.value.split(/\s+/).filter(Boolean).map(Number).filter(n => !isNaN(n));
-            updateForm({ sizes });
-          }}
+          onCommit={raw => updateForm({ sizes: raw.split(/\s+/).filter(Boolean) })}
           placeholder="16 24 32 44"
         />
       </div>
 
       <div style={s.section}>
         <label style={s.label}>Tags (comma-separated)</label>
-        <input
+        <RawInput
           style={s.input}
           value={form.tags.join(', ')}
-          onChange={e => {
-            const tags = e.target.value.split(',').map(t => t.trim()).filter(Boolean);
-            updateForm({ tags });
-          }}
+          onCommit={raw => updateForm({ tags: raw.split(',').map(t => t.trim()).filter(Boolean) })}
           placeholder="like, hand, рука"
         />
       </div>
 
       <div style={s.section}>
+        <label style={s.label}>Styles (comma-separated)</label>
+        <RawInput
+          style={s.input}
+          value={form.styles.join(', ')}
+          onCommit={raw => updateForm({ styles: raw.split(',').map(t => t.trim()).filter(Boolean) })}
+          placeholder="Outline, Filled"
+        />
+      </div>
+
+      <div style={s.section}>
         <label style={s.label}>Categories (comma-separated)</label>
-        <input
+        <RawInput
           style={s.input}
           value={form.categories.join(', ')}
-          onChange={e => {
-            const categories = e.target.value.split(',').map(t => t.trim()).filter(Boolean);
-            updateForm({ categories });
-          }}
+          onCommit={raw => updateForm({ categories: raw.split(',').map(t => t.trim()).filter(Boolean) })}
           placeholder="Kitchen, System"
         />
       </div>

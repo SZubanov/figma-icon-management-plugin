@@ -16,7 +16,13 @@ export function parseMetadata(json: string): IconSetMetadata | null {
       Array.isArray(p.tags) &&
       Array.isArray(p.categories)
     ) {
-      return p as IconSetMetadata;
+      return {
+        name: p.name,
+        sizes: p.sizes.map(String),
+        tags: p.tags,
+        styles: Array.isArray(p.styles) ? p.styles : [],
+        categories: p.categories,
+      } as IconSetMetadata;
     }
     return null;
   } catch {
@@ -35,6 +41,29 @@ function resolveComponentSet(): ComponentSetNode | null {
   return null;
 }
 
+function extractSizesFromNode(node: ComponentSetNode): string[] {
+  const defs = node.componentPropertyDefinitions;
+  const sizeKey = Object.keys(defs).find(k => k.toLowerCase() === 'size');
+  if (!sizeKey) return [];
+  const prop = defs[sizeKey];
+  if (prop.type !== 'VARIANT' || !prop.variantOptions) return [];
+  return prop.variantOptions.map(v => v.trim()).filter(Boolean);
+}
+
+function extractStylesFromNode(node: ComponentSetNode): string[] {
+  const defs = node.componentPropertyDefinitions;
+  const styleKey = Object.keys(defs).find(k => k.toLowerCase() === 'style');
+  if (!styleKey) return [];
+  const prop = defs[styleKey];
+  if (prop.type !== 'VARIANT' || !prop.variantOptions) return [];
+  return prop.variantOptions.map(v => v.trim()).filter(Boolean);
+}
+
+function extractTagsFromNode(node: ComponentSetNode): string[] {
+  if (!node.description) return [];
+  return node.description.split(',').map(t => t.trim()).filter(Boolean);
+}
+
 function handleGetSelection(): void {
   const node = resolveComponentSet();
   if (!node) {
@@ -42,7 +71,16 @@ function handleGetSelection(): void {
     send(isEmpty ? { type: 'NO_SELECTION' } : { type: 'INVALID_SELECTION' });
     return;
   }
-  const metadata = parseMetadata(node.getPluginData('iconset_metadata'));
+  let metadata = parseMetadata(node.getPluginData('iconset_metadata'));
+  if (!metadata) {
+    metadata = {
+      name: node.name,
+      sizes: extractSizesFromNode(node),
+      tags: extractTagsFromNode(node),
+      styles: extractStylesFromNode(node),
+      categories: [],
+    };
+  }
   const data: SelectionData = { nodeId: node.id, nodeName: node.name, metadata };
   send({ type: 'SELECTION_DATA', data });
 }
@@ -207,6 +245,15 @@ async function createShortCard(
     tagsText.characters = metadata.tags.join(', ');
     tagsText.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
     textCol.appendChild(tagsText);
+  }
+
+  if (metadata.styles.length > 0) {
+    const stylesText = figma.createText();
+    stylesText.fontName = { family: 'Inter', style: 'Regular' };
+    stylesText.fontSize = 12;
+    stylesText.characters = metadata.styles.join(', ');
+    stylesText.fills = [{ type: 'SOLID', color: { r: 0.4, g: 0.4, b: 0.4 } }];
+    textCol.appendChild(stylesText);
   }
 
   const sizesStr = metadata.sizes.length > 0 ? metadata.sizes.join(' ') : '—';
