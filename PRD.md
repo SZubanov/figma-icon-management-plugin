@@ -17,31 +17,33 @@ A Figma plugin that lets designers attach metadata (name, tags, sizes, categorie
 1. As a designer, I want to select a Component Set in Figma and open the plugin to see its current metadata, so that I can review what information is attached to it.
 2. As a designer, I want the plugin to automatically recognize when I've selected a variant Component inside a set (instead of the set itself), so that I don't have to navigate the layers panel to select the parent.
 3. As a designer, I want to enter a name for an icon set, so that it appears correctly labeled in the category overview.
-4. As a designer, I want to enter available sizes (e.g., 16 24 32 44) for an icon set, so that other designers can see at a glance what size variants exist.
-5. As a designer, I want to enter comma-separated tags (in multiple languages) for an icon set, so that the card is searchable by keyword and locale.
-6. As a designer, I want to assign one or more categories to an icon set, so that it appears in the corresponding columns of the category overview.
-7. As a designer, I want to save metadata to a Component Set without triggering a release, so that I can edit multiple sets before publishing the overview.
-8. As a designer, I want to release all tagged icon sets at once with a single click, so that the category overview is rebuilt to reflect the current state of all sets.
-9. As a designer, I want the category overview to appear on the same Figma page as my icon library, so that I can see both the source sets and the overview without switching pages.
-10. As a designer, I want short visual cards in the overview to show the icon's 24px preview, name, tags, and available sizes, so that I can assess an icon set at a glance without opening it.
-11. As a designer, I want icon sets that have categories to show a blue "Edit" indicator in their sizes row, so that I can tell at a glance which sets are actively managed by the plugin.
-12. As a designer, I want uncategorized icon sets to appear in a dedicated "НОВЫЕ ИКОНКИ" column in the overview, so that I can identify sets that still need to be categorized.
-13. As a designer, I want the "НОВЫЕ ИКОНКИ" column to disappear when all sets have been categorized, so that the overview stays clean.
-14. As a designer, I want category columns to maintain their left-to-right order across releases, so that I don't have to relearn the layout after each update.
-15. As a designer, I want new categories to be appended to the right of existing columns, so that existing columns stay in their familiar positions.
-16. As a designer, I want cards within each category column to be sorted alphabetically by icon set name, so that I can scan for a specific set by name.
-17. As a designer, I want the plugin to update in real time when I select a different Component Set while the plugin is open, so that I don't need to close and reopen the plugin to switch sets.
-18. As a designer, I want to see an unsaved-changes warning when I select a different Component Set while editing, so that I don't accidentally lose my edits.
-19. As a designer, I want to discard or save my changes when switching selection, so that I have explicit control over what gets saved.
-20. As a designer, I want to remove an icon set from plugin management with a dedicated button, so that its cards are immediately removed from the overview without needing to run a full release.
-21. As a designer, I want deleted Component Sets to have their cards automatically cleaned up on the next release, so that the overview doesn't contain stale entries.
-22. As a designer, I want to see a release summary (cards created, updated, removed) after a release completes, so that I know what changed.
-23. As a designer, I want to see a progress indicator during release, so that I know the plugin is working on a large icon set.
-24. As a designer, I want to receive a clear error message when I click Release with no tagged sets on the page, so that I understand why nothing happened.
-25. As a designer, I want to configure the display name of the root category overview frame, so that it matches our team's naming conventions.
-26. As a designer, I want the root frame name setting to be stored in the Figma document (not per-user), so that all team members see the same frame name when they open the plugin.
-27. As a designer, I want the settings section to always be visible in the plugin UI, so that I can update the frame name at any time without navigating to a settings screen.
-28. As a team, I want the category overview frame to be found reliably by pluginData (not by name), so that renaming the frame doesn't break the plugin.
+4. As a designer, I want the plugin to auto-populate Name, Sizes, Tags, and Styles from the Component Set's native Figma properties when no metadata has been saved yet, so that I don't have to type information that already exists in the file.
+5. As a designer, I want to enter available sizes (e.g., 16 24 32 44+ Medium) for an icon set, so that other designers can see at a glance what size variants exist.
+6. As a designer, I want to enter comma-separated tags (in multiple languages) for an icon set, so that the card is searchable by keyword and locale.
+7. As a designer, I want to enter available styles (e.g., Outline, Filled) for an icon set, so that other designers can see at a glance which visual variants exist.
+8. As a designer, I want to assign one or more categories to an icon set, so that it appears in the corresponding columns of the category overview.
+9. As a designer, I want to save metadata to a Component Set without triggering a release, so that I can edit multiple sets before publishing the overview.
+10. As a designer, I want to release all tagged icon sets at once with a single click, so that the category overview is rebuilt to reflect the current state of all sets.
+11. As a designer, I want the category overview to appear on the same Figma page as my icon library, so that I can see both the source sets and the overview without switching pages.
+12. As a designer, I want short visual cards in the overview to show the icon's 24px preview, name, tags, styles, and available sizes, so that I can assess an icon set at a glance without opening it.
+13. As a designer, I want icon sets that have categories to show a blue "Edit" indicator in their sizes row, so that I can tell at a glance which sets are actively managed by the plugin.
+14. As a designer, I want uncategorized icon sets to appear in a dedicated "НОВЫЕ ИКОНКИ" column in the overview, so that I can identify sets that still need to be categorized.
+15. As a designer, I want the "НОВЫЕ ИКОНКИ" column to disappear when all sets have been categorized, so that the overview stays clean.
+16. As a designer, I want category columns to maintain their left-to-right order across releases, so that I don't have to relearn the layout after each update.
+17. As a designer, I want new categories to be appended to the right of existing columns, so that existing columns stay in their familiar positions.
+18. As a designer, I want cards within each category column to be sorted alphabetically by icon set name, so that I can scan for a specific set by name.
+19. As a designer, I want the plugin to update in real time when I select a different Component Set while the plugin is open, so that I don't need to close and reopen the plugin to switch sets.
+20. As a designer, I want to see an unsaved-changes warning when I select a different Component Set while editing, so that I don't accidentally lose my edits.
+21. As a designer, I want to discard or save my changes when switching selection, so that I have explicit control over what gets saved.
+22. As a designer, I want to remove an icon set from plugin management with a dedicated button, so that its cards are immediately removed from the overview without needing to run a full release.
+23. As a designer, I want deleted Component Sets to have their cards automatically cleaned up on the next release, so that the overview doesn't contain stale entries.
+24. As a designer, I want to see a release summary (cards created, updated, removed) after a release completes, so that I know what changed.
+25. As a designer, I want to see a progress indicator during release, so that I know the plugin is working on a large icon set.
+26. As a designer, I want to receive a clear error message when I click Release with no tagged sets on the page, so that I understand why nothing happened.
+27. As a designer, I want to configure the display name of the root category overview frame, so that it matches our team's naming conventions.
+28. As a designer, I want the root frame name setting to be stored in the Figma document (not per-user), so that all team members see the same frame name when they open the plugin.
+29. As a designer, I want the settings section to always be visible in the plugin UI, so that I can update the frame name at any time without navigating to a settings screen.
+30. As a team, I want the category overview frame to be found reliably by pluginData (not by name), so that renaming the frame doesn't break the plugin.
 
 ---
 
@@ -53,7 +55,7 @@ A Figma plugin that lets designers attach metadata (name, tags, sizes, categorie
 Runs in the Figma plugin sandbox with access to the Figma API. Listens for UI messages and `selectionchange`. Owns all canvas read/write operations.
 
 Key responsibilities:
-- `handleGetSelection`: reads current selection, walks up one level if a `COMPONENT` variant is selected (only one level), resolves to `COMPONENT_SET` or returns `INVALID_SELECTION`
+- `handleGetSelection`: reads current selection, resolves to `COMPONENT_SET` (walks up one level for variants); if no saved metadata, auto-populates from node properties via `extractSizesFromNode`, `extractStylesFromNode`, `extractTagsFromNode`
 - `handleSaveMetadata`: writes `iconset_metadata` JSON to the Component Set via `setPluginData`
 - `handleGetSettings` / `handleSaveSettings`: reads/writes `root_frame_name` on `figma.root` via `setPluginData` (per-document, shared across team)
 - `handleRelease`: full page scan → category map → canvas sync (see Release algorithm below)
@@ -75,7 +77,7 @@ Core of the plugin. Runs entirely in the Figma sandbox:
 Creates a Figma frame representing one icon set in one category:
 - HORIZONTAL auto-layout: 48×48 icon preview + vertical text column
 - Icon preview: `createInstance()` of the child Component where `width === 24`; instance placed in 48×48 frame with gray fill
-- Text column: Name (Inter Bold 14px), Tags (Inter Regular 12px gray, comma-joined), Sizes row (space-joined numbers + " Edit" in blue `#0066FF` via `setRangeFills` — "Edit" omitted on uncategorized cards)
+- Text column: Name (Inter Bold 14px), Tags (Inter Regular 12px gray, comma-joined), Styles (Inter Regular 12px gray, comma-joined, omitted when empty), Sizes row (space-joined strings + " Edit" in blue `#0066FF` via `setRangeFills` — "Edit" omitted on uncategorized cards)
 - Card stores `source_id` and `card_category` pluginData
 
 **4. React UI (`ui.tsx`)**
@@ -94,7 +96,8 @@ Key behaviors:
 - On mount: sends `GET_SELECTION` + `GET_SETTINGS`
 - `selectionchange` from plugin: if `isDirty` → stores incoming selection in `pendingSelection`, shows unsaved-changes banner (Save / Discard); else switches immediately
 - Settings section always visible at bottom; frame name saves on blur via `SAVE_SETTINGS`
-- Form fields: Name (required text), Sizes (space-separated → `number[]`), Tags (comma-separated → `string[]`), Categories (comma-separated → `string[]`)
+- Form fields: Name (text), Sizes (space-separated → `string[]`), Tags (comma-separated → `string[]`), Styles (comma-separated → `string[]`), Categories (comma-separated → `string[]`)
+- Delimited fields (Sizes, Tags, Styles, Categories) use a `RawInput` component: raw string held in local state while typing, parsed and committed to form on blur — prevents delimiter characters (space, comma) from being swallowed by a controlled input
 - "Remove" button triggers confirm then `REMOVE_ICONSET` message
 
 **5. Build tooling (`build.js`)**
@@ -112,8 +115,9 @@ PluginMessage → UI:   SELECTION_DATA | NO_SELECTION | INVALID_SELECTION | SAVE
 ```ts
 interface IconSetMetadata {
   name: string;
-  sizes: number[];
+  sizes: string[];    // preserved as-is (e.g. "44+ Medium"); old number[] data migrated on read
   tags: string[];
+  styles: string[];   // e.g. ["Outline", "Filled"]; absent in old saves → defaults to []
   categories: string[];
 }
 ```
@@ -139,8 +143,11 @@ Since this is a Figma plugin, automated unit tests for canvas operations are imp
 **Testable modules (pure logic, extractable from sandbox):**
 - `buildCategoryMap(iconSets[])` → insertion-ordered map, uncategorized bucket
 - `sortCardsAlphabetically(cards[])` → sorted array
-- `parseMetadata(jsonString)` → typed `IconSetMetadata | null`
+- `parseMetadata(jsonString)` → typed `IconSetMetadata | null`; backward compat: migrates `number[]` sizes, defaults absent `styles` to `[]`
 - `findVariant24(children[])` → correct child or fallback
+- `extractSizesFromNode(node)` → string[] from "Size" variant property
+- `extractStylesFromNode(node)` → string[] from "Style" variant property
+- `extractTagsFromNode(node)` → string[] from comma-split of `node.description`
 
 **Manual verification checklist (from PLAN.md):**
 1. `npm install && node build.js` → `dist/code.js` and `dist/ui.html` appear
@@ -161,7 +168,6 @@ Since this is a Figma plugin, automated unit tests for canvas operations are imp
 - Support for icons without a 24px variant (plugin falls back to `children[0]`)
 - Multi-page support (plugin operates on `figma.currentPage` only)
 - Clickable "Edit" links on canvas cards (Figma plugin API does not support canvas interactivity)
-- Style field (Outline/Filled) on short cards — confirmed not needed by client
 - Filtering or searching within the plugin UI
 - Export or publishing to external systems
 - Undo/redo integration beyond Figma's built-in history

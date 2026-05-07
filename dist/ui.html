@@ -21482,18 +21482,32 @@
   // src/ui/ui.tsx
   var import_react = __toESM(require_react());
   var import_client = __toESM(require_client());
-  var EMPTY_FORM = { name: "", sizes: [], tags: [], categories: [] };
   function post(msg) {
     parent.postMessage({ pluginMessage: msg }, "*");
   }
+  function RawInput({ value, onCommit, style, placeholder }) {
+    const [text, setText] = (0, import_react.useState)(value);
+    (0, import_react.useEffect)(() => {
+      setText(value);
+    }, [value]);
+    return /* @__PURE__ */ import_react.default.createElement(
+      "input",
+      {
+        style,
+        value: text,
+        onChange: (e) => setText(e.target.value),
+        onBlur: () => onCommit(text),
+        placeholder
+      }
+    );
+  }
   function applyPending(pending) {
-    var _a;
     if (pending.kind === "selection") {
       return {
         status: "editing",
         nodeId: pending.data.nodeId,
         nodeName: pending.data.nodeName,
-        form: (_a = pending.data.metadata) != null ? _a : __spreadValues({}, EMPTY_FORM),
+        form: pending.data.metadata,
         isDirty: false,
         pending: null,
         releasing: false,
@@ -21615,7 +21629,7 @@
       return /* @__PURE__ */ import_react.default.createElement("div", { style: s.root }, /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("div", { style: s.summaryTitle }, "Release complete"), /* @__PURE__ */ import_react.default.createElement("div", { style: s.summaryRow }, /* @__PURE__ */ import_react.default.createElement("span", null, "Created"), /* @__PURE__ */ import_react.default.createElement("span", { style: s.summaryNum }, summary.created)), /* @__PURE__ */ import_react.default.createElement("div", { style: s.summaryRow }, /* @__PURE__ */ import_react.default.createElement("span", null, "Updated"), /* @__PURE__ */ import_react.default.createElement("span", { style: s.summaryNum }, summary.updated)), /* @__PURE__ */ import_react.default.createElement("div", { style: s.summaryRow }, /* @__PURE__ */ import_react.default.createElement("span", null, "Removed"), /* @__PURE__ */ import_react.default.createElement("span", { style: s.summaryNum }, summary.removed)), /* @__PURE__ */ import_react.default.createElement("button", { style: __spreadProps(__spreadValues({}, s.btn), { marginTop: 12 }), onClick: () => post({ type: "GET_SELECTION" }) }, "Back")), settingsSection);
     }
     const { nodeId, nodeName, form, isDirty, pending, releasing, releaseStep } = state;
-    return /* @__PURE__ */ import_react.default.createElement("div", { style: s.root }, pending && /* @__PURE__ */ import_react.default.createElement("div", { style: s.banner }, /* @__PURE__ */ import_react.default.createElement("span", { style: { flex: 1 } }, "Unsaved changes"), /* @__PURE__ */ import_react.default.createElement("button", { style: s.bannerBtn, onClick: () => saveAndSwitch(pending) }, "Save"), /* @__PURE__ */ import_react.default.createElement("button", { style: s.bannerBtn, onClick: () => discardAndSwitch(pending) }, "Discard")), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("div", { style: s.label }, "Component Set"), /* @__PURE__ */ import_react.default.createElement("div", { style: s.nodeNameText }, nodeName)), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("label", { style: s.label }, "Name"), /* @__PURE__ */ import_react.default.createElement(
+    return /* @__PURE__ */ import_react.default.createElement("div", { style: s.root, onKeyDown: (e) => e.stopPropagation() }, pending && /* @__PURE__ */ import_react.default.createElement("div", { style: s.banner }, /* @__PURE__ */ import_react.default.createElement("span", { style: { flex: 1 } }, "Unsaved changes"), /* @__PURE__ */ import_react.default.createElement("button", { style: s.bannerBtn, onClick: () => saveAndSwitch(pending) }, "Save"), /* @__PURE__ */ import_react.default.createElement("button", { style: s.bannerBtn, onClick: () => discardAndSwitch(pending) }, "Discard")), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("div", { style: s.label }, "Component Set"), /* @__PURE__ */ import_react.default.createElement("div", { style: s.nodeNameText }, nodeName)), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("label", { style: s.label }, "Name"), /* @__PURE__ */ import_react.default.createElement(
       "input",
       {
         style: s.input,
@@ -21624,36 +21638,35 @@
         placeholder: "Icon set name"
       }
     )), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("label", { style: s.label }, "Sizes (space-separated)"), /* @__PURE__ */ import_react.default.createElement(
-      "input",
+      RawInput,
       {
         style: s.input,
         value: form.sizes.join(" "),
-        onChange: (e) => {
-          const sizes = e.target.value.split(/\s+/).filter(Boolean).map(Number).filter((n) => !isNaN(n));
-          updateForm({ sizes });
-        },
+        onCommit: (raw) => updateForm({ sizes: raw.split(/\s+/).filter(Boolean) }),
         placeholder: "16 24 32 44"
       }
     )), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("label", { style: s.label }, "Tags (comma-separated)"), /* @__PURE__ */ import_react.default.createElement(
-      "input",
+      RawInput,
       {
         style: s.input,
         value: form.tags.join(", "),
-        onChange: (e) => {
-          const tags = e.target.value.split(",").map((t) => t.trim()).filter(Boolean);
-          updateForm({ tags });
-        },
+        onCommit: (raw) => updateForm({ tags: raw.split(",").map((t) => t.trim()).filter(Boolean) }),
         placeholder: "like, hand, \u0440\u0443\u043A\u0430"
       }
+    )), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("label", { style: s.label }, "Styles (comma-separated)"), /* @__PURE__ */ import_react.default.createElement(
+      RawInput,
+      {
+        style: s.input,
+        value: form.styles.join(", "),
+        onCommit: (raw) => updateForm({ styles: raw.split(",").map((t) => t.trim()).filter(Boolean) }),
+        placeholder: "Outline, Filled"
+      }
     )), /* @__PURE__ */ import_react.default.createElement("div", { style: s.section }, /* @__PURE__ */ import_react.default.createElement("label", { style: s.label }, "Categories (comma-separated)"), /* @__PURE__ */ import_react.default.createElement(
-      "input",
+      RawInput,
       {
         style: s.input,
         value: form.categories.join(", "),
-        onChange: (e) => {
-          const categories = e.target.value.split(",").map((t) => t.trim()).filter(Boolean);
-          updateForm({ categories });
-        },
+        onCommit: (raw) => updateForm({ categories: raw.split(",").map((t) => t.trim()).filter(Boolean) }),
         placeholder: "Kitchen, System"
       }
     )), /* @__PURE__ */ import_react.default.createElement("div", { style: s.actions }, /* @__PURE__ */ import_react.default.createElement("button", { style: s.btn, onClick: saveCurrentForm, disabled: !isDirty }, "Save"), /* @__PURE__ */ import_react.default.createElement(
